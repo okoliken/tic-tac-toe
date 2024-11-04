@@ -4,13 +4,14 @@ import { container } from '../../styled-system/patterns'
 </script>
 
 <template>
-  <main :class="[container(), css({
+  <main :class="[css({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     gap: '4',
     padding: '8',
-    minHeight: '100vh'
+    height: '100vh',
+    overflow: 'hidden'
   })]">
     <router-view></router-view>
   </main>

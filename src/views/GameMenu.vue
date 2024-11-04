@@ -2,6 +2,7 @@
 import { css } from '../../styled-system/css'
 import { vstack, container } from '../../styled-system/patterns'
 import Button from '../components/ui/button/Button.vue'
+import Logo from '../components/Logo.vue'
 </script>
 
 <template>
@@ -9,17 +10,20 @@ import Button from '../components/ui/button/Button.vue'
     :class="
       container({
         display: 'flex',
-        minH: '100vh',
+        h: '100vh',
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'column',
+        w: '100%',
       })
     "
   >
-    <div :class="vstack({ gap: '5', align: 'center' })">
+    <Logo :class="css({ marginBottom: '2.5rem' })" />
+    <div :class="vstack({ gap: '2.5rem', align: 'center', w: '100%' })">
       <div
         :class="
           css({
-            w: '28.75rem',
+            w: 'min(28.75rem, 100%)',
             h: '12.813rem',
             bg: 'darkNavy.100',
             boxShadow: '0px -8px 0px 0px #10212A inset',
@@ -28,7 +32,16 @@ import Button from '../components/ui/button/Button.vue'
           })
         "
       >
-        <div :class="vstack({ gap: '2', align: 'center', justify: 'space-between', height: '100%' })">
+        <div
+          :class="
+            vstack({
+              gap: '2',
+              align: 'center',
+              justify: 'space-between',
+              h: '100%',
+            })
+          "
+        >
           <h3
             :class="
               css({
@@ -46,11 +59,35 @@ import Button from '../components/ui/button/Button.vue'
 
           <div></div>
 
-          <p>REMEMBER : X GOES FIRST</p>
+          <p
+            :class="
+              css({
+                fontSize: 'heading.xxs',
+                textAlign: 'center',
+                color: 'sliver.200',
+                textTransform: 'uppercase',
+                letterSpacing: '0.055rem',
+                opacity: '0.5',
+              })
+            "
+          >
+            REMEMBER : X GOES FIRST
+          </p>
         </div>
       </div>
-      <Button visual="secondary" size="lg">NEW GAME (VS CPU)</Button>
-      <Button visual="primary" size="lg">NEW GAME (VS PLAYER)</Button>
+      <div
+        :class="
+          vstack({
+            gap: '1.25rem',
+            align: 'center',
+            flexDirection: 'column',
+            w: '100%',
+          })
+        "
+      >
+        <Button visual="secondary" size="lg">NEW GAME (VS CPU)</Button>
+        <Button visual="primary" size="lg">NEW GAME (VS PLAYER)</Button>
+      </div>
     </div>
   </div>
 </template>

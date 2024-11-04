@@ -49,8 +49,16 @@ export const button = cva({
         }
       },
       size: {
-        sm: { fontSize: 'fontSizes.heading.xs', height: '3.25rem', maxWidth: '14.125rem', width: '100%' },
-        lg: { fontSize: 'fontSizes.heading.sm', height: '4.188rem', maxWidth: '28.75rem', width: '100%' },
+        sm: { 
+          fontSize: 'fontSizes.heading.xs', 
+          height: '3.25rem', 
+          width: 'min(14.125rem, 100%)',  // Use min() function
+        },
+        lg: { 
+          fontSize: 'fontSizes.heading.sm', 
+          height: '4.188rem', 
+          width: 'min(28.75rem, 100%)',  // Use min() function
+        },
       },
     },
     defaultVariants: {
