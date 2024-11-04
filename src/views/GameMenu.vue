@@ -1,6 +1,6 @@
 <script setup lang="tsx">
 import { css } from '../../styled-system/css'
-import { vstack, container } from '../../styled-system/patterns'
+import { vstack } from '../../styled-system/patterns'
 import Button from '../components/ui/button/Button.vue'
 import Logo from '../components/Logo.vue'
 </script>
@@ -8,7 +8,7 @@ import Logo from '../components/Logo.vue'
 <template>
   <div
     :class="
-      container({
+      css({
         display: 'flex',
         h: '100vh',
         alignItems: 'center',
@@ -56,7 +56,15 @@ import Logo from '../components/Logo.vue'
             PICK PLAYER 1’S MARK
           </h3>
 
-          <div></div>
+          <div :class="css({
+            width: 'min(17.438rem, 100%)',
+            height: 'min(17.438rem, 100%)',
+            bg: 'darkNavy.200',
+            borderRadius: '0.625rem',
+            marginTop: '1.25rem'
+          })">
+
+          </div>
 
           <p
             :class="
