@@ -1,14 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import CenteredLayout from '../layouts/CenteredLayout.vue'
+import GameMenu from '../views/GameMenu.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
-    },
+      component: CenteredLayout,
+      children: [
+        {
+          path: '',  // default child route (home)
+          component: GameMenu
+        },
+      ]
+    }
   ]
 })
 
