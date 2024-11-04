@@ -19,7 +19,7 @@ import Logo from '../components/Logo.vue'
     "
   >
     <Logo :class="css({ marginBottom: '2.5rem' })" />
-    <div :class="vstack({ gap: '2.5rem', align: 'center', w: '100%' })">
+    <div :class="vstack({ gap: '2.5rem', alignItems: 'center', w: '100%' })">
       <div
         :class="
           css({
@@ -36,7 +36,7 @@ import Logo from '../components/Logo.vue'
           :class="
             vstack({
               gap: '2',
-              align: 'center',
+              alignItems: 'center',
               justify: 'space-between',
               h: '100%',
             })
@@ -49,7 +49,6 @@ import Logo from '../components/Logo.vue'
                 textTransform: 'uppercase',
                 color: 'sliver.100',
                 textAlign: 'center',
-                color: 'sliver.200',
                 fontWeight: 'bold',
               })
             "
@@ -79,7 +78,7 @@ import Logo from '../components/Logo.vue'
         :class="
           vstack({
             gap: '1.25rem',
-            align: 'center',
+            alignItems: 'center',
             flexDirection: 'column',
             w: '100%',
           })
