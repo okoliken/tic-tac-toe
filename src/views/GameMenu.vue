@@ -56,15 +56,17 @@ import Logo from '../components/Logo.vue'
             PICK PLAYER 1’S MARK
           </h3>
 
-          <div :class="css({
-            width: 'min(17.438rem, 100%)',
-            height: 'min(17.438rem, 100%)',
-            bg: 'darkNavy.200',
-            borderRadius: '0.625rem',
-            marginTop: '1.25rem'
-          })">
-
-          </div>
+          <div
+            :class="
+              css({
+                width: 'min(17.438rem, 100%)',
+                height: 'min(17.438rem, 100%)',
+                bg: 'darkNavy.200',
+                borderRadius: '0.625rem',
+                marginTop: '1.25rem',
+              })
+            "
+          ></div>
 
           <p
             :class="
