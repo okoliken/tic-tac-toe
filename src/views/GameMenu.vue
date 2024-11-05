@@ -1,8 +1,12 @@
 <script setup lang="tsx">
 import { css } from '../../styled-system/css'
 import { vstack } from '../../styled-system/patterns'
+import { ref } from 'vue'
+import { Icon } from '@iconify/vue'
 import Button from '../components/ui/button/Button.vue'
 import Logo from '../components/Logo.vue'
+
+const activeButton = ref('X')
 </script>
 
 <template>
@@ -19,6 +23,7 @@ import Logo from '../components/Logo.vue'
     "
   >
     <Logo :class="css({ marginBottom: '2.5rem' })" />
+
     <div :class="vstack({ gap: '2.5rem', alignItems: 'center', w: '100%' })">
       <div
         :class="
@@ -59,14 +64,75 @@ import Logo from '../components/Logo.vue'
           <div
             :class="
               css({
-                width: 'min(17.438rem, 100%)',
+                width: 'min(25.75rem, 100%)',
                 height: 'min(17.438rem, 100%)',
                 bg: 'darkNavy.200',
                 borderRadius: '0.625rem',
                 marginTop: '1.25rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                p: '0.5rem',
               })
             "
-          ></div>
+          >
+            <button
+              @click="activeButton = 'X'"
+              :class="
+                css({
+                  flex: '1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  bg: activeButton === 'X' ? 'sliver.200' : 'transparent',
+                  h: '3.375rem',
+                  borderRadius: '0.625rem',
+                  transition: 'all 0.2s ease-in-out',
+                  cursor: 'pointer',
+                })
+              "
+            >
+              <Icon
+                icon="fa:close"
+                :class="
+                  css({
+                    w: '2rem',
+                    h: '2rem',
+                    color: activeButton === 'X' ? 'darkNavy.100' : 'sliver.200',
+                    transition: 'all 0.2s ease-in-out',
+                  })
+                "
+              />
+            </button>
+            <button
+              @click="activeButton = 'O'"
+              :class="
+                css({
+                  flex: '1',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  bg: activeButton === 'O' ? 'sliver.200' : 'transparent',
+                  h: '3.375rem',
+                  borderRadius: '0.625rem',
+                  transition: 'all 0.2s ease-in-out',
+                  cursor: 'pointer',
+                })
+              "
+            >
+              <Icon
+                icon="fa6-solid:circle-dot"
+                :class="
+                  css({
+                    w: '2rem',
+                    h: '2rem',
+                    color: activeButton === 'O' ? 'darkNavy.100' : 'sliver.200',
+                    transition: 'all 0.2s ease-in-out',
+                  })
+                "
+              />
+            </button>
+          </div>
 
           <p
             :class="

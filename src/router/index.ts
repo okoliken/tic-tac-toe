@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import CenteredLayout from '../layouts/CenteredLayout.vue'
 import GameMenu from '../views/GameMenu.vue'
 
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -10,9 +11,13 @@ const router = createRouter({
       component: CenteredLayout,
       children: [
         {
-          path: '',  // default child route (home)
+          path: '',  
           component: GameMenu
         },
+        {
+          path: 'game',
+          component: () => import('../views/GameArea.vue')
+        } 
       ]
     }
   ]
