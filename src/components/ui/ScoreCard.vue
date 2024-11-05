@@ -41,7 +41,7 @@ const baseStyles = css({
           fontWeight: '400',
           color: 'darkNavy.200',
           letterSpacing:'0.055rem',
-          flex:'1'
+          flex:'1',
         })
       "
     >
