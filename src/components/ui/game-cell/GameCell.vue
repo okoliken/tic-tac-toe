@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import { css } from '../../../../styled-system/css'
 </script>
 

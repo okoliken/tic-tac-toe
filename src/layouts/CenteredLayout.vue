@@ -7,9 +7,10 @@ import { css } from "../../styled-system/css";
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: '4',
     padding: '6',
-    height: '100vh',
+    minHeight: '100vh',
     overflow: 'hidden'
   })]">
     <router-view></router-view>

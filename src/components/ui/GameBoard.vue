@@ -4,12 +4,13 @@ import GameCell from './game-cell/GameCell.vue'
 </script>
 
 <template>
-  <div :class="css({
+  <div 
+    :class="css({
     display: 'grid',
     gridTemplateColumns: 'repeat(3, 1fr)',
     gap: '1.25rem',
     width: '100%'
   })">
-    <GameCell v-for="i in 3" :key="i" />
+    <GameCell v-for="i in 9" :key="i" />
   </div>
 </template>

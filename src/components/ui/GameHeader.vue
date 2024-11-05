@@ -1,4 +1,4 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import { css } from '../../../styled-system/css'
 import { Icon } from '@iconify/vue'
 import Logo from '../Logo.vue'
@@ -34,7 +34,6 @@ import Button from './button/Button.vue'
         })
       "
     >
-
       <Icon
         icon="fa:close"
         :class="
@@ -46,19 +45,31 @@ import Button from './button/Button.vue'
           })
         "
       />
-      <p :class="css({
-        fontSize: 'heading.xs',
-        fontWeight: 'bold',
-        color: 'sliver.200',
-      })">TURN</p>
+      <p
+        :class="
+          css({
+            fontSize: 'heading.xs',
+            fontWeight: 'bold',
+            color: 'sliver.200',
+          })
+        "
+      >
+        TURN
+      </p>
     </div>
 
-    <Button :class="css({
-        w: 'min(3.25rem, 100%)',
-        h: '3.25rem',
-        p: '1rem',
-        boxShadow: '0px -4px 0px 0px #6B8997 inset',
-    })" visual="silver" render-icon-only>
+    <Button
+      :class="
+        css({
+          width: '3.25rem!',
+          h: '3.25rem',
+          p: '1rem',
+          boxShadow: '0px -4px 0px 0px #6B8997 inset!',
+        })
+      "
+      visual="silver"
+      render-icon-only
+    >
       <svg
         width="20"
         height="20"

@@ -1,7 +1,8 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import { css } from '../../styled-system/css'
 import GameHeader from '../components/ui/GameHeader.vue'
 import GameBoard from '../components/ui/GameBoard.vue'
+import ScoreBoard from '../components/ui/ScoreBoard.vue'
 </script>
 
 <template>
@@ -9,7 +10,6 @@ import GameBoard from '../components/ui/GameBoard.vue'
     :class="
       css({
         display: 'flex',
-        h: '100vh',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
@@ -29,6 +29,7 @@ import GameBoard from '../components/ui/GameBoard.vue'
     >
       <GameHeader />
       <GameBoard />
+      <ScoreBoard />
     </div>
   </div>
 </template>

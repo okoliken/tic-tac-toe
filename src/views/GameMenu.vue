@@ -1,12 +1,19 @@
-<script setup lang="tsx">
+<script setup lang="ts">
 import { css } from '../../styled-system/css'
 import { vstack } from '../../styled-system/patterns'
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import Button from '../components/ui/button/Button.vue'
 import Logo from '../components/Logo.vue'
 
+
 const activeButton = ref('X')
+const router = useRouter()
+
+const handleNavigation = () => {
+  router.push('/game')
+}
 </script>
 
 <template>
@@ -14,7 +21,6 @@ const activeButton = ref('X')
     :class="
       css({
         display: 'flex',
-        h: '100vh',
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'column',
@@ -160,7 +166,7 @@ const activeButton = ref('X')
           })
         "
       >
-        <Button visual="secondary" size="lg">NEW GAME (VS CPU)</Button>
+        <Button @click="()=> handleNavigation()" visual="secondary" size="lg">NEW GAME (VS CPU)</Button>
         <Button visual="primary" size="lg">NEW GAME (VS PLAYER)</Button>
       </div>
     </div>
