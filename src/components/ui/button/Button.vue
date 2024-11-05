@@ -1,4 +1,7 @@
 <script setup lang="ts">
+defineOptions({
+  name: 'BaseButton'
+})
 import { button } from './button.styles'
 
 const { visual, size } = defineProps({

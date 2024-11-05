@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { css } from '../../../styled-system/css'
 import { Icon } from '@iconify/vue'
-import Logo from '../Logo.vue'
+import GameLogo from '../GameLogo.vue'
 import Button from './button/Button.vue'
 </script>
 
@@ -16,7 +16,7 @@ import Button from './button/Button.vue'
       })
     "
   >
-    <Logo />
+    <GameLogo />
     <div
       :class="
         css({

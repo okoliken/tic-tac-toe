@@ -4,8 +4,9 @@ import { css } from '../../../styled-system/css'
 
 const styles = css({
   display: 'grid',
-  gridTemplateColumns: 'repeat(3, 1fr)',
-  gap: '1.188rem'
+  gridTemplateColumns: '1fr 1fr 1fr',
+  gap: '1.188rem',
+  w: '100%',
 })
 </script>
 

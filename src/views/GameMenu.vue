@@ -5,7 +5,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import Button from '../components/ui/button/Button.vue'
-import Logo from '../components/Logo.vue'
+import GameLogo from '../components/GameLogo.vue'
 
 
 const activeButton = ref('X')
@@ -28,7 +28,7 @@ const handleNavigation = () => {
       })
     "
   >
-    <Logo :class="css({ marginBottom: '2.5rem' })" />
+    <GameLogo :class="css({ marginBottom: '2.5rem' })" />
 
     <div :class="vstack({ gap: '2.5rem', alignItems: 'center', w: '100%' })">
       <div

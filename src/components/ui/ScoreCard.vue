@@ -8,10 +8,9 @@ const props = defineProps<{
 }>()
 
 const baseStyles = css({
-  w: '8.75rem',
-  h: '4.5rem',
+  w: '100%',
+  minH: '4.5rem',
   borderRadius: '0.938rem',
-  flex: '1',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -30,7 +29,7 @@ const baseStyles = css({
         alignItems: 'center',
         flexDirection: 'column',
         justifyContent: 'center',
-      
+        flex: '1',
       }),
     ]"
   >
