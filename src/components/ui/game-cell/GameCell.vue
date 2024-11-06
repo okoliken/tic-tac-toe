@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import { css } from '../../../../styled-system/css'
 import { Icon } from '@iconify/vue'
+import { computed } from 'vue'
+
+const props = defineProps<{
+  value: string
+}>()
+
+const icon = computed(() => {
+  if (props.value === 'X') return 'fa:close'
+  if (props.value === 'O') return 'fa6-solid:circle-dot'
+  return ''
+})
+
+const iconColor = computed(() => {
+  if (props.value === 'X') return 'primary.200'
+  if (props.value === 'O') return 'secondary.200'
+  return ''
+})
 </script>
 
 <template>
@@ -14,7 +31,7 @@ import { Icon } from '@iconify/vue'
         borderRadius: '0.938rem',
         boxShadow: '0px -8px 0px 0px #10212A inset',
         _hover: {
-          cursor: 'pointer',
+          cursor: props.value ? 'default' : 'pointer',
         },
         display: 'flex',
         alignItems: 'center',
@@ -22,15 +39,13 @@ import { Icon } from '@iconify/vue'
       })
     "
   >
-    <div>
-      <!-- <Icon
-        :class="css({ w: '4rem', h: '4rem', color: 'primary.200' })"
-        icon="fa:close"
-      /> -->
-      <Icon
-        :class="css({ w: '4rem', h: '4rem', color: 'secondary.200' })"
-        icon="fa6-solid:circle-dot"
-      />
-    </div>
+    <Transition name="slide-up">
+      <div v-if="value">
+        <Icon
+        :class="css({ w: '4rem', h: '4rem', color: iconColor })"
+        :icon="icon"
+        />
+      </div>
+    </Transition>
   </div>
 </template>

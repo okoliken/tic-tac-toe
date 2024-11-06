@@ -6,12 +6,14 @@ import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
 import Button from '../components/ui/button/Button.vue'
 import GameLogo from '../components/GameLogo.vue'
-
+import { useGameStore } from '@/stores/gameStore'
 
 const activeButton = ref('X')
 const router = useRouter()
+const gameStore = useGameStore()
 
-const handleNavigation = () => {
+const handleNavigation = (mode: 'cpu' | 'player') => {
+  gameStore.initGame(mode, activeButton.value as 'X' | 'O')
   router.push('/game')
 }
 </script>
@@ -166,8 +168,20 @@ const handleNavigation = () => {
           })
         "
       >
-        <Button @click="()=> handleNavigation()" visual="secondary" size="lg">NEW GAME (VS CPU)</Button>
-        <Button visual="primary" size="lg">NEW GAME (VS PLAYER)</Button>
+        <Button
+          @click="() => handleNavigation('cpu')"
+          visual="secondary"
+          size="lg"
+        >
+          NEW GAME (VS CPU)
+        </Button>
+        <Button
+          @click="() => handleNavigation('player')"
+          visual="primary"
+          size="lg"
+        >
+          NEW GAME (VS PLAYER)
+        </Button>
       </div>
     </div>
   </div>

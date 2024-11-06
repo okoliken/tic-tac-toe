@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useGameStore } from '@/stores/gameStore'
+import { useModalStore } from '@/stores/modalStore'
 import { Icon } from '@iconify/vue'
 import { css } from '../../styled-system/css'
 import GameHeader from '../components/ui/GameHeader.vue'
@@ -6,6 +8,9 @@ import GameBoard from '../components/ui/GameBoard.vue'
 import ScoreBoard from '../components/ui/ScoreBoard.vue'
 import GameModal from '../components/GameModal.vue'
 import Button from '../components/ui/button/Button.vue'
+
+const gameStore = useGameStore()
+const modalStore = useModalStore()
 </script>
 
 <template>
@@ -34,7 +39,7 @@ import Button from '../components/ui/button/Button.vue'
       <GameBoard />
       <ScoreBoard />
     </div>
-    <GameModal>
+    <GameModal v-if="modalStore.isOpen">
       <template #header>
         <div>
           <p
@@ -48,7 +53,7 @@ import Button from '../components/ui/button/Button.vue'
               })
             "
           >
-            PLAYER 1 WINS!
+            {{ gameStore.winnerMessage }}
           </p>
         </div>
 
@@ -64,14 +69,14 @@ import Button from '../components/ui/button/Button.vue'
           "
         >
           <Icon
-            :class="css({ w: '4rem', h: '4rem', color: 'secondary.200' })"
-            icon="fa6-solid:circle-dot"
+            :class="css({ w: '4rem', h: '4rem', color: gameStore.winner === 'X' ? 'primary.200' : 'secondary.200' })"
+            :icon="gameStore.winner === 'X' ? 'fa:close' : 'fa6-solid:circle-dot'"
           />
           <h2
             :class="
               css({
                 fontSize: 'heading.lg',
-                color: 'secondary.200',
+                color: gameStore.winner === 'X' ? 'primary.200' : 'secondary.200',
                 fontWeight: 'bold'
               })
             "
@@ -92,6 +97,7 @@ import Button from '../components/ui/button/Button.vue'
           "
         >
           <Button
+            @click="gameStore.quitGame"
             :class="
               css({
                 w: '4.75rem!',
@@ -105,6 +111,7 @@ import Button from '../components/ui/button/Button.vue'
             >QUIT</Button
           >
           <Button
+            @click="gameStore.nextRound"
             :class="
               css({
                 w: '9.125rem!',

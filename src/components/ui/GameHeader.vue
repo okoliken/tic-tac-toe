@@ -3,6 +3,10 @@ import { css } from '../../../styled-system/css'
 import { Icon } from '@iconify/vue'
 import GameLogo from '../GameLogo.vue'
 import Button from './button/Button.vue'
+import { useGameStore } from '@/stores/gameStore'
+import { storeToRefs } from 'pinia'
+
+const { currentPlayer } = storeToRefs(useGameStore())
 </script>
 
 <template>
@@ -34,17 +38,32 @@ import Button from './button/Button.vue'
         })
       "
     >
-      <Icon
-        icon="fa:close"
-        :class="
-          css({
-            w: '1.25rem',
-            h: '1.25rem',
-            color: 'sliver.200',
-            transition: 'all 0.2s ease-in-out',
-          })
-        "
-      />
+      <Transition mode="out-in" name="slide-up">
+        <Icon
+          v-if="currentPlayer === 'X'"
+          icon="fa:close"
+          :class="
+            css({
+              w: '1.25rem',
+              h: '1.25rem',
+              color: 'sliver.200',
+              transition: 'all 0.2s ease-in-out',
+            })
+          "
+        />
+        <Icon
+          v-else
+          icon="fa6-solid:circle-dot"
+          :class="
+            css({
+              w: '1.25rem',
+              h: '1.25rem',
+              color: 'sliver.200',
+              transition: 'all 0.2s ease-in-out',
+            })
+          "
+        />
+      </Transition>
       <p
         :class="
           css({
@@ -59,6 +78,7 @@ import Button from './button/Button.vue'
     </div>
 
     <Button
+      @click="() => useGameStore().resetGame()"
       :class="
         css({
           width: '3.25rem!',
