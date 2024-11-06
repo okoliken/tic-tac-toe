@@ -64,6 +64,7 @@ import Button from './button/Button.vue'
           width: '3.25rem!',
           h: '3.25rem',
           p: '1rem',
+          borderRadius: { base: '0.313rem', sm: '0.625rem' },
           boxShadow: '0px -4px 0px 0px #6B8997 inset!',
         })
       "
