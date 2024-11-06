@@ -31,7 +31,6 @@ export const useGameStore = defineStore('game', () => {
   const gameStatus = ref<'playing' | 'won' | 'draw'>('playing')
   const winner = ref<PlayerMark | null>(null)
 
-
   const checkWinner = computed(() => {
     return WINNING_COMBINATIONS.some(combination => {
       return combination.every(index => {
@@ -43,7 +42,6 @@ export const useGameStore = defineStore('game', () => {
   const checkDraw = computed(() => {
     return board.value.every(cell => cell !== '')
   })
-
 
   const initGame = (mode: GameMode, mark: PlayerMark) => {
     gameMode.value = mode
@@ -70,12 +68,19 @@ export const useGameStore = defineStore('game', () => {
   }
 
   const nextRound = () => {
-    modalStore.hideModal()
-    board.value = Array(9).fill('')
-    currentPlayer.value = 'X'
-    gameStatus.value = 'playing'
-    winner.value = null
-  }
+    modalStore.hideModal();
+    board.value = Array(9).fill('');
+
+    // If the computer lost the previous round, it should go first
+    if (winner.value === playerOneMark.value) {
+      currentPlayer.value = 'O';
+    } else {
+      currentPlayer.value = 'X';
+    }
+
+    gameStatus.value = 'playing';
+    winner.value = null;
+  };
 
   const makeMove = async (index: number) => {
     if (board.value[index] || gameStatus.value !== 'playing') return
@@ -118,11 +123,26 @@ export const useGameStore = defineStore('game', () => {
     currentPlayer.value = currentPlayer.value === 'X' ? 'O' : 'X'
   }
 
-  // Simple CPU move - can be made smarter later
+  // Improved CPU move logic
   const makeCPUMove = async () => {
     // Add small delay to make it feel more natural
-    await new Promise(resolve => setTimeout(resolve, 500))
+    await new Promise(resolve => setTimeout(resolve, 800))
 
+    // Check if CPU can win on the next move
+    const winningMove = findWinningMove(currentPlayer.value)
+    if (winningMove !== -1) {
+      placeMark(winningMove)
+      return
+    }
+
+    // Check if player can win on the next move and block them
+    const blockingMove = findWinningMove(playerOneMark.value)
+    if (blockingMove !== -1) {
+      placeMark(blockingMove)
+      return
+    }
+
+    // If no winning or blocking move, make a random move
     const emptySpots = board.value
       .map((cell, index) => cell === '' ? index : -1)
       .filter(index => index !== -1)
@@ -131,6 +151,35 @@ export const useGameStore = defineStore('game', () => {
       const randomIndex = emptySpots[Math.floor(Math.random() * emptySpots.length)]
       placeMark(randomIndex)
     }
+  }
+
+  // Helper function to find a winning move
+  const findWinningMove = (mark: PlayerMark) => {
+    for (let i = 0; i < WINNING_COMBINATIONS.length; i++) {
+      const [a, b, c] = WINNING_COMBINATIONS[i]
+      if (
+        board.value[a] === mark &&
+        board.value[b] === mark &&
+        board.value[c] === ''
+      ) {
+        return c
+      }
+      if (
+        board.value[a] === mark &&
+        board.value[b] === '' &&
+        board.value[c] === mark
+      ) {
+        return b
+      }
+      if (
+        board.value[a] === '' &&
+        board.value[b] === mark &&
+        board.value[c] === mark
+      ) {
+        return a
+      }
+    }
+    return -1
   }
 
   const updateScores = () => {
@@ -143,7 +192,7 @@ export const useGameStore = defineStore('game', () => {
 
   const resetGame = () => {
     board.value = Array(9).fill('')
-    currentPlayer.value = 'X'
+    currentPlayer.value = playerOneMark.value
     gameStatus.value = 'playing'
     winner.value = null
     scores.value = {

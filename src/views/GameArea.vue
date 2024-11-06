@@ -65,7 +65,7 @@ const modalStore = useModalStore()
               alignItems: 'center',
               justifyContent: 'center',
               gap: '1rem',
-              marginBottom: '1.938rem',
+              marginBottom: { base: '1.938rem', lg: '0' },
             })
           "
         >
