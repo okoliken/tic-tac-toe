@@ -25,8 +25,9 @@ const iconColor = computed(() => {
     role="button"
     :class="
       css({
-        w: '8.75rem',
-        h: '8.75rem',
+        w: '100%',
+        maxW: '8.75rem',
+        aspectRatio: '1',
         bg: 'darkNavy.100',
         borderRadius: '0.938rem',
         boxShadow: '0px -8px 0px 0px #10212A inset',
@@ -42,7 +43,12 @@ const iconColor = computed(() => {
     <Transition name="slide-up">
       <div v-if="value">
         <Icon
-        :class="css({ w: '4rem', h: '4rem', color: iconColor })"
+        :class="css({
+          w: { base: '2.5rem', sm: '4rem' },
+          h: { base: '2.5rem', sm: '4rem' },
+          aspectRatio: '1',
+          color: iconColor
+        })"
         :icon="icon"
         />
       </div>

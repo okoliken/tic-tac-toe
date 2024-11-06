@@ -11,7 +11,7 @@ const gameStore = useGameStore()
     :class="css({
       display: 'grid',
       gridTemplateColumns: 'repeat(3, 1fr)',
-      gap: '1.25rem',
+      gap: { base: '0.65rem', sm: '1.25rem' },
       width: '100%'
     })"
   >

@@ -9,7 +9,7 @@ const { scores } = storeToRefs(useGameStore())
 const styles = css({
   display: 'grid',
   gridTemplateColumns: '1fr 1fr 1fr',
-  gap: '1.188rem',
+  gap: { base: '0.65rem', sm: '1.188rem' },
   w: '100%',
 })
 </script>

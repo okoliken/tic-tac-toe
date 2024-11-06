@@ -17,6 +17,7 @@ const { currentPlayer } = storeToRefs(useGameStore())
         justifyContent: 'space-between',
         alignItems: 'center',
         w: '100%',
+        marginBottom: { base: '4rem', sm: '0' },
       })
     "
   >
@@ -27,13 +28,13 @@ const { currentPlayer } = storeToRefs(useGameStore())
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '0.813rem',
+          gap: { base: '0.563rem', sm: '0.813rem' },
           bg: 'darkNavy.100',
-          w: 'min(8.75rem, 100%)',
-          h: '3.25rem',
+          w: { base: '6rem', sm: 'min(8.75rem, 100%)' },
+          h: { base: '2.5rem', sm: '3.25rem' },
           pt: '0.813rem',
           pb: '1.188rem',
-          borderRadius: '0.625rem',
+          borderRadius: {base:'0.313rem', sm:'0.625rem'},
           boxShadow: '0px -4px 0px 0px #10212A inset',
         })
       "
@@ -67,7 +68,7 @@ const { currentPlayer } = storeToRefs(useGameStore())
       <p
         :class="
           css({
-            fontSize: 'heading.xs',
+            fontSize: {base:'heading.xxs',sm:'heading.xs'},
             fontWeight: 'bold',
             color: 'sliver.200',
           })
@@ -81,9 +82,8 @@ const { currentPlayer } = storeToRefs(useGameStore())
       @click="() => useGameStore().resetGame()"
       :class="
         css({
-          width: '3.25rem!',
-          h: '3.25rem',
-          p: '1rem',
+          width: { base: '2.5rem', sm: '3.25rem!' },
+          h: { base: '2.5rem', sm: '3.25rem!' },
           borderRadius: { base: '0.313rem', sm: '0.625rem' },
           boxShadow: '0px -4px 0px 0px #6B8997 inset!',
         })
@@ -92,8 +92,10 @@ const { currentPlayer } = storeToRefs(useGameStore())
       render-icon-only
     >
       <svg
-        width="20"
-        height="20"
+        :class="css({
+          w: { base: '1rem', sm: '1.25rem' },
+          h: { base: '1rem', sm: '1.25rem' },
+        })"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
