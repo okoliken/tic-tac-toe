@@ -39,7 +39,8 @@ const modalStore = useModalStore()
       <GameBoard />
       <ScoreBoard />
     </div>
-    <GameModal v-if="modalStore.isOpen">
+
+    <GameModal :is-open="modalStore.isOpen">
       <template #header>
         <div>
           <p
@@ -69,13 +70,17 @@ const modalStore = useModalStore()
           "
         >
           <Icon
-            :class="css({ w: '4rem', h: '4rem', color: gameStore.winner === 'X' ? 'primary.200' : 'secondary.200' })"
+            :class="css({
+              w: { base: '1.75rem', lg: '4rem' },
+              h: { base: '1.75rem', lg: '4rem' },
+              color: gameStore.winner === 'X' ? 'primary.200' : 'secondary.200'
+            })"
             :icon="gameStore.winner === 'X' ? 'fa:close' : 'fa6-solid:circle-dot'"
           />
           <h2
             :class="
               css({
-                fontSize: 'heading.lg',
+                fontSize: { lg: 'heading.lg', base: 'heading.md' },
                 color: gameStore.winner === 'X' ? 'primary.200' : 'secondary.200',
                 fontWeight: 'bold'
               })
@@ -126,6 +131,6 @@ const modalStore = useModalStore()
           >
         </div>
       </template>
-    </GameModal>
+      </GameModal>
   </div>
 </template>

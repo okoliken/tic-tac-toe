@@ -146,6 +146,11 @@ export const useGameStore = defineStore('game', () => {
     currentPlayer.value = 'X'
     gameStatus.value = 'playing'
     winner.value = null
+    scores.value = {
+      x: 0,
+      o: 0,
+      ties: 0
+    }
   }
 
   return {

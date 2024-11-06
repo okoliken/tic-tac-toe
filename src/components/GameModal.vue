@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { css } from '../../styled-system/css'
+
+const { isOpen } = defineProps<{
+  isOpen: boolean
+}>()
 </script>
 
 <template>
   <Teleport to="body">
-    <div :class="css({
+    <Transition name="fade">
+    <div v-if="isOpen" :class="css({
       position: 'fixed',
       top: 0,
       left: 0,
@@ -20,7 +25,7 @@ import { css } from '../../styled-system/css'
         :class="
           css({
             backgroundColor: 'darkNavy.100',
-            padding: '2rem',
+            padding: { lg: '2rem', base: '0.5rem' },
             boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
             width: '100%',
             height: '16.625rem',
@@ -46,6 +51,7 @@ import { css } from '../../styled-system/css'
         </footer>
       </div>
     </div>
+    </Transition>
   </Teleport>
 </template>
 

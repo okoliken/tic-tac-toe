@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import ScoreCard from './ScoreCard.vue'
 import { css } from '../../../styled-system/css'
+import { useGameStore } from '@/stores/gameStore'
+import { storeToRefs } from 'pinia'
+
+const { scores } = storeToRefs(useGameStore())
 
 const styles = css({
   display: 'grid',
@@ -12,8 +16,8 @@ const styles = css({
 
 <template>
   <div :class="styles">
-    <ScoreCard title="X (YOU)" color="primary.200" score="0" />
-    <ScoreCard title="TIES" color="sliver.200" score="0" />
-    <ScoreCard title="O (CPU)" color="secondary.200" score="0" />
+    <ScoreCard title="X (YOU)" color="primary.200" :score="scores.x" />
+    <ScoreCard title="TIES" color="sliver.200" :score="scores.ties" />
+    <ScoreCard title="O (CPU)" color="secondary.200" :score="scores.o" />
   </div>
 </template>

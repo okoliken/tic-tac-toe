@@ -4,7 +4,7 @@ import { css } from '../../../styled-system/css'
 const props = defineProps<{
   title: string
   color: string
-  score: string
+  score: number
 }>()
 
 const baseStyles = css({
