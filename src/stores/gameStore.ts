@@ -10,8 +10,6 @@ export const useGameStore = defineStore('game', () => {
   const router = useRouter()
   const modalStore = useModalStore()
 
-  const isGameInProgress = ref(false)
-
   const WINNING_COMBINATIONS = [
     [0, 1, 2],
     [3, 4, 5],
@@ -37,6 +35,7 @@ export const useGameStore = defineStore('game', () => {
   const currentPlayer = ref<PlayerMark>('X')
   const gameStatus = ref<'playing' | 'won' | 'draw'>('playing')
   const winner = ref<PlayerMark | null>(null)
+  const isGameInProgress = ref(false)
 
   const checkWinner = computed(() => {
     return WINNING_COMBINATIONS.some(combination => {
@@ -230,6 +229,7 @@ export const useGameStore = defineStore('game', () => {
       ties: 0,
     }
     modalStore.hideModal()
+    // reset the game in progress flag
     isGameInProgress.value = false
   }
 
