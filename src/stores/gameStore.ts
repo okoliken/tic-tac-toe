@@ -10,17 +10,24 @@ export const useGameStore = defineStore('game', () => {
   const router = useRouter()
   const modalStore = useModalStore()
 
+  const isGameInProgress = ref(false)
+
   const WINNING_COMBINATIONS = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6]
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
   ]
 
   // Game Score
   const scores = ref({
     x: 0,
     o: 0,
-    ties: 0
+    ties: 0,
   })
 
   // Game configuration
@@ -54,10 +61,21 @@ export const useGameStore = defineStore('game', () => {
     if (gameStatus.value !== 'won') return ''
 
     if (gameMode.value === 'cpu') {
-      return winner.value === playerOneMark.value ? 'YOU WON!' : 'OH NO, YOU LOST...'
+      return winner.value === playerOneMark.value
+        ? 'YOU WON!'
+        : 'OH NO, YOU LOST...'
     }
 
     return `PLAYER ${winner.value === playerOneMark.value ? '1' : '2'} WINS!`
+  })
+
+  // find winning position used for cpu move
+  const findWinningPosition = computed(() => {
+    return WINNING_COMBINATIONS.find(combination => {
+      return combination.every(
+        index => board.value[index] === currentPlayer.value,
+      )
+    })
   })
 
   // Actions
@@ -67,24 +85,32 @@ export const useGameStore = defineStore('game', () => {
     router.push('/')
   }
 
-  const nextRound = () => {
-    modalStore.hideModal();
-    board.value = Array(9).fill('');
+  const nextRound = async () => {
+    modalStore.hideModal()
+    board.value = Array(9).fill('')
 
-    // If the computer lost the previous round, it should go first
-    if (winner.value === playerOneMark.value) {
-      currentPlayer.value = 'O';
+    // Reset the current player based on the game mode
+    if (gameMode.value === 'cpu') {
+      // If the computer lost the previous round, it should go first
+      if (winner.value === playerOneMark.value) {
+        currentPlayer.value = 'O'
+        await makeCPUMove()
+      } else {
+        currentPlayer.value = 'X'
+      }
     } else {
-      currentPlayer.value = 'X';
+      // For player vs player mode, always start with player 1's mark
+      currentPlayer.value = playerOneMark.value
     }
 
-    gameStatus.value = 'playing';
-    winner.value = null;
-  };
+    gameStatus.value = 'playing'
+    winner.value = null
+  }
 
   const makeMove = async (index: number) => {
     if (board.value[index] || gameStatus.value !== 'playing') return
-    if (gameMode.value === 'cpu' && currentPlayer.value !== playerOneMark.value) return
+    if (gameMode.value === 'cpu' && currentPlayer.value !== playerOneMark.value)
+      return
 
     placeMark(index)
 
@@ -108,6 +134,7 @@ export const useGameStore = defineStore('game', () => {
   // Helper function to place a mark
   const placeMark = (index: number) => {
     board.value[index] = currentPlayer.value
+    isGameInProgress.value = true
 
     if (checkWinner.value) {
       gameStatus.value = 'won'
@@ -144,11 +171,12 @@ export const useGameStore = defineStore('game', () => {
 
     // If no winning or blocking move, make a random move
     const emptySpots = board.value
-      .map((cell, index) => cell === '' ? index : -1)
+      .map((cell, index) => (cell === '' ? index : -1))
       .filter(index => index !== -1)
 
     if (emptySpots.length > 0) {
-      const randomIndex = emptySpots[Math.floor(Math.random() * emptySpots.length)]
+      const randomIndex =
+        emptySpots[Math.floor(Math.random() * emptySpots.length)]
       placeMark(randomIndex)
     }
   }
@@ -184,7 +212,8 @@ export const useGameStore = defineStore('game', () => {
 
   const updateScores = () => {
     if (gameStatus.value === 'won') {
-      if (winner.value === 'X') scores.value.x++; else scores.value.o++;
+      if (winner.value === 'X') scores.value.x++
+      else scores.value.o++
     } else if (gameStatus.value === 'draw') {
       scores.value.ties++
     }
@@ -198,8 +227,10 @@ export const useGameStore = defineStore('game', () => {
     scores.value = {
       x: 0,
       o: 0,
-      ties: 0
+      ties: 0,
     }
+    modalStore.hideModal()
+    isGameInProgress.value = false
   }
 
   return {
@@ -220,6 +251,9 @@ export const useGameStore = defineStore('game', () => {
     nextRound,
     makeMove,
     initGame,
-    resetGame
+    resetGame,
+    isGameInProgress,
+    checkWinner,
+    findWinningPosition,
   }
 })

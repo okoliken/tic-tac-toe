@@ -2,7 +2,6 @@
 import { css } from '../../../styled-system/css'
 import GameCell from './game-cell/GameCell.vue'
 import { useGameStore } from '@/stores/gameStore'
-
 const gameStore = useGameStore()
 </script>
 
@@ -19,6 +18,7 @@ const gameStore = useGameStore()
       v-for="(cell, index) in gameStore.board"
       :key="index"
       :value="cell"
+      :index
       @click="gameStore.makeMove(index)"
     />
   </div>

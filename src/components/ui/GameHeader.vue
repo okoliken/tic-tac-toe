@@ -7,7 +7,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { useModalStore } from '@/stores/modalStore'
 import { storeToRefs } from 'pinia'
 
-const { currentPlayer } = storeToRefs(useGameStore())
+const { currentPlayer, isGameInProgress } = storeToRefs(useGameStore())
 const modalStore = useModalStore()
 
 const openModal = () => {
@@ -85,7 +85,7 @@ const openModal = () => {
     </div>
 
     <Button
-      @click="() => openModal()"
+      @click="() => isGameInProgress && openModal()"
       :class="
         css({
           width: { base: '2.5rem!', sm: '3.25rem!' },

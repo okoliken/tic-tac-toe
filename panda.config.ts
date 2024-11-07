@@ -45,5 +45,5 @@ export default defineConfig({
   outdir: 'styled-system',
   globalCss: globalStyles,
   jsxFramework: 'vue',
-  hash: true
+  hash: false
 })
