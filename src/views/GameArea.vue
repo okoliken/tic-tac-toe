@@ -69,37 +69,55 @@ const modalStore = useModalStore()
           "
         >
           <Icon
-            v-if="gameStore.gameStatus !== 'draw'"
-            :class="css({
-              w: { base: '1.75rem', lg: '4rem' },
-              h: { base: '1.75rem', lg: '4rem' },
-              color: gameStore.winner === 'X' ? 'primary.200' : 'secondary.200'
-            })"
-            :icon="gameStore.winner === 'X' ? 'fa:close' : 'fa6-solid:circle-dot'"
+            v-if="modalStore.modalType !== 'draw' && modalStore.modalType !== 'restart'"
+            :class="
+              css({
+                w: { base: '1.75rem', lg: '4rem' },
+                h: { base: '1.75rem', lg: '4rem' },
+                color:
+                  gameStore.winner === 'X' ? 'primary.200' : 'secondary.200',
+              })
+            "
+            :icon="
+              gameStore.winner === 'X' ? 'fa:close' : 'fa6-solid:circle-dot'
+            "
           />
           <h2
-            v-if="gameStore.gameStatus !== 'draw'"
+            v-if="modalStore.modalType !== 'draw' && modalStore.modalType !== 'restart'"
             :class="
               css({
                 fontSize: { lg: 'heading.lg', base: 'heading.md' },
-                color: gameStore.winner === 'X' ? 'primary.200' : 'secondary.200',
-                fontWeight: 'bold'
+                color:
+                  gameStore.winner === 'X' ? 'primary.200' : 'secondary.200',
+                fontWeight: 'bold',
               })
             "
           >
             TAKES THE ROUND
           </h2>
           <h2
-            v-if="gameStore.gameStatus === 'draw'"
+            v-if="modalStore.modalType === 'draw'"
             :class="
               css({
                 fontSize: { lg: 'heading.lg', base: 'heading.md' },
                 color: 'sliver.200',
-                fontWeight: 'bold'
+                fontWeight: 'bold',
               })
             "
           >
             ROUND TIED
+          </h2>
+          <h2
+            v-if="modalStore.modalType === 'restart'"
+            :class="
+              css({
+                fontSize: { lg: 'heading.lg', base: 'heading.md' },
+                color: 'sliver.200',
+                fontWeight: 'bold',
+              })
+            "
+          >
+            RESTART GAME?
           </h2>
         </div>
       </template>
@@ -115,6 +133,7 @@ const modalStore = useModalStore()
           "
         >
           <Button
+            v-if="modalStore.modalType !== 'restart'"
             @click="gameStore.quitGame"
             :class="
               css({
@@ -129,6 +148,7 @@ const modalStore = useModalStore()
             >QUIT</Button
           >
           <Button
+            v-if="modalStore.modalType !== 'restart'"
             @click="gameStore.nextRound"
             :class="
               css({
@@ -142,8 +162,38 @@ const modalStore = useModalStore()
             size="sm"
             >NEXT ROUND</Button
           >
+          <Button
+            v-if="modalStore.modalType === 'restart'"
+            @click="modalStore.hideModal"
+            :class="
+              css({
+                w: '9.125rem!',
+                boxShadow: '0px -4px 0px 0px #6B8997 inset!',
+                fontSize: 'heading.xs',
+                borderRadius: '0.625rem!',
+              })
+            "
+            visual="silver"
+            size="sm"
+            >NO, CANCEL</Button
+          >
+          <Button
+            v-if="modalStore.modalType === 'restart'"
+            @click="gameStore.resetGame"
+            :class="
+              css({
+                w: '9.125rem!',
+                boxShadow: '0px -4px 0px 0px #CC8B13 inset!',
+                fontSize: 'heading.xs',
+                borderRadius: '0.625rem!',
+              })
+            "
+            visual="secondary"
+            size="sm"
+            >YES, RESTART</Button
+          >
         </div>
       </template>
-      </GameModal>
+    </GameModal>
   </div>
 </template>

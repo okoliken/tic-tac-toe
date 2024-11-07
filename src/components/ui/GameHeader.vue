@@ -4,9 +4,15 @@ import { Icon } from '@iconify/vue'
 import GameLogo from '../GameLogo.vue'
 import Button from './button/Button.vue'
 import { useGameStore } from '@/stores/gameStore'
+import { useModalStore } from '@/stores/modalStore'
 import { storeToRefs } from 'pinia'
 
 const { currentPlayer } = storeToRefs(useGameStore())
+const modalStore = useModalStore()
+
+const openModal = () => {
+  modalStore.showModal('restart')
+}
 </script>
 
 <template>
@@ -17,7 +23,7 @@ const { currentPlayer } = storeToRefs(useGameStore())
         justifyContent: 'space-between',
         alignItems: 'center',
         w: '100%',
-        marginBottom: { base: '4rem', sm: '0' },
+        marginBottom: { base: '2rem', sm: '0' },
       })
     "
   >
@@ -79,7 +85,7 @@ const { currentPlayer } = storeToRefs(useGameStore())
     </div>
 
     <Button
-      @click="() => useGameStore().resetGame()"
+      @click="() => openModal()"
       :class="
         css({
           width: { base: '2.5rem!', sm: '3.25rem!' },
