@@ -82,19 +82,24 @@ const { currentPlayer } = storeToRefs(useGameStore())
       @click="() => useGameStore().resetGame()"
       :class="
         css({
-          width: { base: '2.5rem', sm: '3.25rem!' },
-          h: { base: '2.5rem', sm: '3.25rem!' },
+          width: { base: '2.5rem!', sm: '3.25rem!' },
+          h: { base: '2.5rem!', sm: '3.25rem!' },
           borderRadius: { base: '0.313rem', sm: '0.625rem' },
           boxShadow: '0px -4px 0px 0px #6B8997 inset!',
+          '&:active #icon-reset': {
+            transform: 'rotate(120deg)',
+          },
         })
       "
       visual="silver"
       render-icon-only
     >
       <svg
+        id="icon-reset"
         :class="css({
           w: { base: '1rem', sm: '1.25rem' },
           h: { base: '1rem', sm: '1.25rem' },
+          transition: 'transform 0.3s ease-in-out',
         })"
         viewBox="0 0 20 20"
         fill="none"

@@ -65,11 +65,11 @@ const modalStore = useModalStore()
               alignItems: 'center',
               justifyContent: 'center',
               gap: '1rem',
-              marginBottom: { base: '1.938rem', lg: '0' },
             })
           "
         >
           <Icon
+            v-if="gameStore.gameStatus !== 'draw'"
             :class="css({
               w: { base: '1.75rem', lg: '4rem' },
               h: { base: '1.75rem', lg: '4rem' },
@@ -78,6 +78,7 @@ const modalStore = useModalStore()
             :icon="gameStore.winner === 'X' ? 'fa:close' : 'fa6-solid:circle-dot'"
           />
           <h2
+            v-if="gameStore.gameStatus !== 'draw'"
             :class="
               css({
                 fontSize: { lg: 'heading.lg', base: 'heading.md' },
@@ -87,6 +88,18 @@ const modalStore = useModalStore()
             "
           >
             TAKES THE ROUND
+          </h2>
+          <h2
+            v-if="gameStore.gameStatus === 'draw'"
+            :class="
+              css({
+                fontSize: { lg: 'heading.lg', base: 'heading.md' },
+                color: 'sliver.200',
+                fontWeight: 'bold'
+              })
+            "
+          >
+            ROUND TIED
           </h2>
         </div>
       </template>
