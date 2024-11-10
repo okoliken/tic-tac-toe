@@ -20,19 +20,19 @@ const icon = computed(() => {
 })
 
 const iconColor = computed(() => {
-  if (props.value === 'X') return 'primary.200'
-  if (props.value === 'O') return 'secondary.200'
+  if (props.value === PlayerType.X) return 'primary.200'
+  if (props.value === PlayerType.O) return 'secondary.200'
   return ''
 })
 
 const winningPositionClass = computed(() => {
-  if (winner.value === 'X') {
+  if (winner.value === PlayerType.X) {
     return {
       bg: 'primary.200',
       color: 'darkNavy.100'
     }
   }
-  if (winner.value === 'O') {
+  if (winner.value === PlayerType.O) {
     return {
       bg: 'secondary.200',
       color: 'darkNavy.100'
