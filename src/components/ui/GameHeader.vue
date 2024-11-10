@@ -6,6 +6,7 @@ import Button from './button/Button.vue'
 import { useGameStore } from '@/stores/gameStore'
 import { useModalStore } from '@/stores/modalStore'
 import { storeToRefs } from 'pinia'
+import { PlayerType } from '../../types'
 
 const { currentPlayer, isGameInProgress } = storeToRefs(useGameStore())
 const modalStore = useModalStore()
@@ -47,7 +48,7 @@ const openModal = () => {
     >
       <Transition mode="out-in" name="slide-up">
         <Icon
-          v-if="currentPlayer === 'X'"
+          v-if="currentPlayer === PlayerType.X"
           icon="fa:close"
           :class="
             css({

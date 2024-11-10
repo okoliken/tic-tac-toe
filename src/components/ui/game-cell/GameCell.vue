@@ -4,6 +4,7 @@ import { Icon } from '@iconify/vue'
 import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { storeToRefs } from 'pinia'
+import  { PlayerType } from '../../../types'
 
 const { findWinningPosition, winner } = storeToRefs(useGameStore())
 
@@ -13,8 +14,8 @@ const props = defineProps<{
 }>()
 
 const icon = computed(() => {
-  if (props.value === 'X') return 'fa:close'
-  if (props.value === 'O') return 'fa6-solid:circle-dot'
+  if (props.value === PlayerType.X) return 'fa:close'
+  if (props.value === PlayerType.O) return 'fa6-solid:circle-dot'
   return ''
 })
 
