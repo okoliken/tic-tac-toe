@@ -121,7 +121,7 @@ export const useGameStore = defineStore(
         updateScores()
         setTimeout(() => {  
           modalStore.showModal(gameStatus.value === 'won' ? 'win' : 'draw')
-        }, 50)
+        }, 500)
         return
       }
 
@@ -132,7 +132,7 @@ export const useGameStore = defineStore(
           updateScores()
           setTimeout(() => {  
             modalStore.showModal(gameStatus.value === 'won' ? 'win' : 'draw')
-          }, 50)
+          }, 500)
         }
       }
     }

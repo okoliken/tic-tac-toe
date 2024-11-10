@@ -20,4 +20,9 @@ export const useModalStore = defineStore('modal', () => {
     showModal,
     hideModal
   }
+},{
+  persist: {
+    key: 'game-modal',
+    storage: localStorage
+  },
 }) 

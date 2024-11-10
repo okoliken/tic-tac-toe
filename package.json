@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@vueuse/core": "^11.2.0",
+    "nprogress": "^0.2.0",
     "pinia": "^2.2.4",
     "pinia-plugin-persistedstate": "^4.1.2",
     "vue": "^3.5.12",
@@ -26,7 +27,9 @@
     "@pandacss/dev": "^0.47.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
+    "@types/ngprogress": "^1.0.32",
     "@types/node": "^20.17.0",
+    "@types/nprogress": "^0.2.3",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.0.1",
     "@vitest/eslint-plugin": "1.1.7",

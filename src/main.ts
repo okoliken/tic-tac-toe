@@ -2,8 +2,12 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-
+import "nprogress/nprogress.css";
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+
+import * as NProgress from "nprogress";
+
+NProgress.configure({ easing: "ease", speed: 800 });
 
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)

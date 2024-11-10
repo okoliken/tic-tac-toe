@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import CenteredLayout from '../layouts/CenteredLayout.vue'
 import GameMenu from '../views/GameMenu.vue'
-
+import Nprogress from "nprogress";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -21,6 +21,14 @@ const router = createRouter({
       ]
     }
   ]
+})
+
+router.beforeEach(() => {
+  Nprogress.start();
+})
+
+router.afterEach(() => {
+  Nprogress.done();
 })
 
 export default router
