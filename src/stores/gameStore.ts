@@ -262,6 +262,7 @@ export const useGameStore = defineStore(
   },
   {
     persist: {
+      key: 'game-state',
       storage: localStorage
     },
   },
