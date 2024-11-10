@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useModalStore } from './modalStore'
 import  { type GameMode, type PlayerMark, PlayerType } from '../types'
@@ -119,7 +119,9 @@ export const useGameStore = defineStore(
       // Check game end conditions
       if (gameStatus.value !== 'playing') {
         updateScores()
-        modalStore.showModal(gameStatus.value === 'won' ? 'win' : 'draw')
+        setTimeout(() => {  
+          modalStore.showModal(gameStatus.value === 'won' ? 'win' : 'draw')
+        }, 50)
         return
       }
 
@@ -128,7 +130,9 @@ export const useGameStore = defineStore(
         await makeCPUMove()
         if (gameStatus.value !== 'playing') {
           updateScores()
-          modalStore.showModal(gameStatus.value === 'won' ? 'win' : 'draw')
+          setTimeout(() => {  
+            modalStore.showModal(gameStatus.value === 'won' ? 'win' : 'draw')
+          }, 50)
         }
       }
     }
