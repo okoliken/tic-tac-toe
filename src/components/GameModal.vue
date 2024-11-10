@@ -47,7 +47,7 @@ const { isOpen } = defineProps<{
           </header>
 
           <!-- Default slot for body content -->
-          <div :class="css({ marginY: '1rem' })">
+          <div v-if="slot.default" :class="css({ marginY: '1rem' })">
             <slot></slot>
           </div>
 

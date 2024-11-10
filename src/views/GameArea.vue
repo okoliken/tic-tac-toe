@@ -47,7 +47,6 @@ const modalStore = useModalStore()
             :class="
               css({
                 fontSize: 'heading.sm',
-                marginBottom: '1.438rem',
                 color: 'sliver.200',
                 fontWeight: 'bold',
                 textTransform: 'uppercase',
@@ -57,7 +56,7 @@ const modalStore = useModalStore()
             {{ gameStore.winnerMessage }}
           </p>
         </div>
-
+      </template>
         <div
           :class="
             css({
@@ -120,7 +119,6 @@ const modalStore = useModalStore()
             RESTART GAME?
           </h2>
         </div>
-      </template>
       <template #footer>
         <div
           :class="
