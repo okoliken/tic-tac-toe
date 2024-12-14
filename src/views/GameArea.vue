@@ -86,8 +86,7 @@ const modalStore = useModalStore()
             :class="
               css({
                 fontSize: { lg: 'heading.lg', base: 'heading.md' },
-                color:
-                  gameStore.winner === 'X' ? 'primary.200' : 'secondary.200',
+                color: gameStore.winner === 'X' ? 'primary.200' : 'secondary.200',
                 fontWeight: 'bold',
               })
             "
