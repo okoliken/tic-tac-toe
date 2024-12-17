@@ -5,3 +5,4 @@ export enum PlayerType {
 
 export type GameMode = 'cpu' | 'player'
 export type PlayerMark = 'X' | 'O'
+export type ISPLAYERORCOMPUTER = 'player' | 'computer' | ''

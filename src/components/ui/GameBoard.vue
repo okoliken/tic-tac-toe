@@ -19,7 +19,7 @@ const gameStore = useGameStore()
       :key="index"
       :value="cell"
       :index
-      @click="gameStore.makeMove(index)"
+      @click="gameStore.makeMove(index, 'player')"
     />
   </div>
 </template>

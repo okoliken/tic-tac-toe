@@ -1,4 +1,4 @@
-import { PlayerType, type GameMode, type PlayerMark } from '@/types'
+import  { PlayerType, type GameMode, type PlayerMark, type ISPLAYERORCOMPUTER } from '@/types'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -24,10 +24,11 @@ export const useGameState = defineStore('gameState', () => {
       const gameMode = ref<GameMode>('player')
       const playerOneMark = ref<PlayerMark>(PlayerType.X)
       const board = ref<string[]>(Array(9).fill(''))
-      const currentPlayer = ref<PlayerMark>(PlayerType.X)
+      const currentPlayer = ref<PlayerMark | null>(playerOneMark.value)
       const gameStatus = ref<'playing' | 'won' | 'draw'>('playing')
       const winner = ref<PlayerMark | null>(null)
       const isGameInProgress = ref(false)
+      const isPlayerOrComputer = ref<ISPLAYERORCOMPUTER>('')
 
     return {
         scores,
@@ -38,6 +39,7 @@ export const useGameState = defineStore('gameState', () => {
         gameStatus,
         winner,
         isGameInProgress,
-        WINNING_COMBINATIONS
+        WINNING_COMBINATIONS,
+        isPlayerOrComputer
     }
 })

@@ -3,8 +3,8 @@ import { useRouter } from 'vue-router'
 import { useModalStore } from './modalStore'
 import { useGameState } from './gameState'
 import { storeToRefs } from 'pinia'
-import { PlayerType } from "@/types";
 import { computed } from "vue";
+import { PlayerType } from "@/types";
 
 export const useGameUtility = defineStore("gameutility", () => {
     const router = useRouter()
@@ -16,6 +16,7 @@ export const useGameUtility = defineStore("gameutility", () => {
     const resetGame = () => {
         board.value = Array(9).fill('')
         currentPlayer.value = playerOneMark.value
+
         gameStatus.value = 'playing'
         winner.value = null
         scores.value = {
@@ -29,7 +30,7 @@ export const useGameUtility = defineStore("gameutility", () => {
 
     const updateScores = () => {
         if (gameStatus.value === 'won') {
-            if (winner.value === PlayerType.X) scores.value.x++
+            if (winner.value === playerOneMark.value) scores.value.x++
             else scores.value.o++
         } else if (gameStatus.value === 'draw') {
             scores.value.ties++

@@ -46,7 +46,7 @@ const openModal = () => {
         })
       "
     >
-      <Transition mode="out-in" name="slide-up">
+      <Transition mode="out-in">
         <Icon
           v-if="currentPlayer === PlayerType.X"
           icon="fa:close"

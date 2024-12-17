@@ -2,15 +2,15 @@ import { defineStore } from 'pinia'
 import { useGameState } from './gameState'
 import { useGameUtility } from './gameUtility'
 import { storeToRefs } from 'pinia'
-import { PlayerType, type PlayerMark } from "@/types";
+import { PlayerType, type ISPLAYERORCOMPUTER, type PlayerMark } from "@/types";
 import { useModalStore } from './modalStore';
 
 export const useGameMoves = defineStore('gameMoves', () => {
-    const { board, gameMode, playerOneMark, currentPlayer, gameStatus, winner, isGameInProgress } = storeToRefs(useGameState())
+    const { board, gameMode, playerOneMark, currentPlayer, gameStatus, winner, isGameInProgress, isPlayerOrComputer } = storeToRefs(useGameState())
     const { checkWinner, checkDraw } = storeToRefs(useGameUtility())
     const modalStore = useModalStore()
 
-    const makeMove = async (index: number) => {
+    const makeMove = async (index: number, player?: string) => {
         if (board.value[index] || gameStatus.value !== 'playing') return
         if (
             gameMode.value === 'cpu' &&
@@ -18,6 +18,7 @@ export const useGameMoves = defineStore('gameMoves', () => {
         )
             return
 
+        isPlayerOrComputer.value = player as 'player' | 'computer' 
         placeMark(index)
 
         if (gameStatus.value !== 'playing') {
@@ -40,7 +41,7 @@ export const useGameMoves = defineStore('gameMoves', () => {
     }
 
     const placeMark = (index: number) => {
-        board.value[index] = currentPlayer.value
+        board.value[index] = currentPlayer.value as 'X' | 'O'
         isGameInProgress.value = true
 
         if (checkWinner.value) {
@@ -61,9 +62,10 @@ export const useGameMoves = defineStore('gameMoves', () => {
     const makeCPUMove = async () => {
         // Add small delay to make it feel more natural
         await new Promise(resolve => setTimeout(resolve, 800))
+        isPlayerOrComputer.value = 'computer'
 
         // Check if CPU can win on the next move
-        const winningMove = findWinningMove(currentPlayer.value)
+        const winningMove = findWinningMove(currentPlayer.value as 'X' | 'O')
         if (winningMove !== -1) {
             placeMark(winningMove)
             return
@@ -92,14 +94,19 @@ export const useGameMoves = defineStore('gameMoves', () => {
         modalStore.hideModal()
         board.value = Array(9).fill('')
   
-        // Reset the current player based on the game mode
         if (gameMode.value === 'cpu') {
-          // If the computer lost the previous round, it should go first
-          if (winner.value === playerOneMark.value) {
-            currentPlayer.value = PlayerType.O
+          if (winner.value === PlayerType.O && playerOneMark.value === PlayerType.O) {
+            currentPlayer.value = PlayerType.X
             await makeCPUMove()
           } else {
-            currentPlayer.value = PlayerType.X
+            if (playerOneMark.value === PlayerType.O && gameStatus.value === 'draw') {
+                currentPlayer.value = PlayerType.X
+                await makeCPUMove()
+            }
+            else{
+                currentPlayer.value = PlayerType.O
+                await makeCPUMove()
+            }
           }
         } else {
           // For player vs player mode, always start with player 1's mark
@@ -109,7 +116,7 @@ export const useGameMoves = defineStore('gameMoves', () => {
         gameStatus.value = 'playing'
         winner.value = null
       }
-
+      
     const findWinningMove = (mark: PlayerMark) => {
         for (let i = 0; i < useGameState().WINNING_COMBINATIONS.length; i++) {
             const [a, b, c] = useGameState().WINNING_COMBINATIONS[i]

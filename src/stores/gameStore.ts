@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { computed } from 'vue'
 import { useGameState } from './gameState'
 import { useGameUtility } from './gameUtility'
 import { useGameMoves } from './gameMoves'
@@ -17,6 +16,7 @@ export const useGameStore = defineStore(
       currentPlayer,
       gameStatus,
       winner,
+      isPlayerOrComputer,
       isGameInProgress
     } = storeToRefs(useGameState())
 
@@ -51,6 +51,7 @@ export const useGameStore = defineStore(
       // Game Utility
       winnerMessage,
       checkWinner,
+      isPlayerOrComputer,
       findWinningPosition,
     }
   },
