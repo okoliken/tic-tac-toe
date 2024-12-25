@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { css } from '../../../styled-system/css'
 
-const props = defineProps<{
+const { title, color, score } = defineProps<{
   title: string
   color: string
   score: number
@@ -24,7 +24,7 @@ const baseStyles = css({
     :class="[
       baseStyles,
       css({
-        bg: `${props.color}`,
+        bg: `${color}`,
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
@@ -39,12 +39,12 @@ const baseStyles = css({
           fontSize: 'heading.xxs',
           fontWeight: '400',
           color: 'darkNavy.200',
-          letterSpacing:'0.055rem',
-          flex:'1',
+          letterSpacing: '0.055rem',
+          flex: '1',
         })
       "
     >
-      {{ props.title }}
+      {{ title }}
     </h3>
     <p
       :class="
@@ -52,11 +52,11 @@ const baseStyles = css({
           fontSize: 'heading.md',
           fontWeight: '700',
           color: 'darkNavy.200',
-            flex:'1'
+          flex: '1',
         })
       "
     >
-      {{ props.score }}
+      {{ score }}
     </p>
   </div>
 </template>

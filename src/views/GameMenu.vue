@@ -176,7 +176,7 @@ const handleNavigation = (mode: 'cpu' | 'player') => {
           NEW GAME (VS CPU)
         </Button>
         <Button
-          @click="() => handleNavigation('player')"
+          @click="() => router.push('/waiting-room')"
           visual="primary"
           size="lg"
         >

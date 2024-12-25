@@ -17,7 +17,11 @@ const router = createRouter({
         {
           path: 'game',
           component: () => import('../views/GameArea.vue')
-        } 
+        },
+        {
+          path:'waiting-room',
+          component: () => import('../views/GameWaitingRoom.vue')
+        }
       ]
     }
   ]
