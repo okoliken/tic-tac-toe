@@ -6,6 +6,7 @@ import { PlayerType, type PlayerMark } from '@/types'
 import { useModalStore } from './modalStore'
 
 export const useGameMoves = defineStore('gameMoves', () => {
+    // game state
   const {
     board,
     gameMode,
@@ -19,6 +20,7 @@ export const useGameMoves = defineStore('gameMoves', () => {
   const { checkWinner, checkDraw } = storeToRefs(useGameUtility())
   const modalStore = useModalStore()
 
+//   this function checks if the player can win on the next move - used by the CPU
   const makeMove = async (index: number, player?: string) => {
     if (board.value[index] || gameStatus.value !== 'playing') return
     if (gameMode.value === 'cpu' && currentPlayer.value !== playerOneMark.value)
@@ -46,6 +48,7 @@ export const useGameMoves = defineStore('gameMoves', () => {
     }
   }
 
+//   this function places a mark on the board
   const placeMark = (index: number) => {
     board.value[index] = currentPlayer.value as 'X' | 'O'
     isGameInProgress.value = true
@@ -108,6 +111,7 @@ export const useGameMoves = defineStore('gameMoves', () => {
         currentPlayer.value = PlayerType.X
         await makeCPUMove()
       } else {
+        // For CPU vs player mode, always start with CPU's mark
         if (
           playerOneMark.value === PlayerType.O &&
           gameStatus.value === 'draw'
@@ -115,6 +119,7 @@ export const useGameMoves = defineStore('gameMoves', () => {
           currentPlayer.value = PlayerType.X
           await makeCPUMove()
         }
+        // If player 2 is the computer and it won, start with player 1's mark
         else if (
           isPlayerOrComputer.value !== 'player' &&
           gameStatus.value === 'won' &&
@@ -123,6 +128,7 @@ export const useGameMoves = defineStore('gameMoves', () => {
           currentPlayer.value = PlayerType.X
           await makeCPUMove()
         }
+        // If player 1 is the computer and it won, start with player 2's mark
         else {
           currentPlayer.value = PlayerType.O
           await makeCPUMove()
@@ -137,6 +143,7 @@ export const useGameMoves = defineStore('gameMoves', () => {
     winner.value = null
   }
 
+//   this function checks if the player can win on the next move - used by the CPU
   const findWinningMove = (mark: PlayerMark) => {
     for (let i = 0; i < useGameState().WINNING_COMBINATIONS.length; i++) {
       const [a, b, c] = useGameState().WINNING_COMBINATIONS[i]

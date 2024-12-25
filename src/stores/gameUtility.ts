@@ -12,7 +12,7 @@ export const useGameUtility = defineStore("gameutility", () => {
 
     const { scores, gameMode, playerOneMark, board, currentPlayer, gameStatus, winner, isGameInProgress } = storeToRefs(useGameState())
 
-
+    //   this function resets the game
     const resetGame = () => {
         board.value = Array(9).fill('')
         currentPlayer.value = playerOneMark.value
@@ -27,7 +27,7 @@ export const useGameUtility = defineStore("gameutility", () => {
         modalStore.hideModal()
         isGameInProgress.value = false
     }
-
+    //   this function updates the scores
     const updateScores = () => {
         if (gameStatus.value === 'won') {
             if (winner.value === playerOneMark.value) scores.value.x++
@@ -37,7 +37,7 @@ export const useGameUtility = defineStore("gameutility", () => {
         }
     }
 
-
+    //  utility function to check if there is a winner
     const checkWinner = computed(() => {
         return useGameState().WINNING_COMBINATIONS.some(combination => {
             return combination.every(index => {
@@ -46,6 +46,7 @@ export const useGameUtility = defineStore("gameutility", () => {
         })
     })
 
+    // utility function to display game status message
     const winnerMessage = computed(() => {
         if (gameStatus.value !== 'won') return ''
 
@@ -58,6 +59,7 @@ export const useGameUtility = defineStore("gameutility", () => {
         return `PLAYER ${winner.value === playerOneMark.value ? '1' : '2'} WINS!`
     })
 
+    // utility function to find the winning position - this is used to highlight the winning position i.e green or orange hehehe
     const findWinningPosition = computed(() => {
         return useGameState().WINNING_COMBINATIONS.find(combination => {
             return combination.every(
@@ -66,6 +68,7 @@ export const useGameUtility = defineStore("gameutility", () => {
         })
     })
 
+    // this function resets and quits the game
     const quitGame = () => {
         modalStore.hideModal()
         resetGame()
