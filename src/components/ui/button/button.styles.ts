@@ -14,6 +14,7 @@ export const button = cva({
       textTransform: 'uppercase',
       cursor: 'pointer',
       transition: 'all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+      _disabled: { opacity: 0.5, cursor: 'not-allowed' },
     },
     variants: {
       visual: {

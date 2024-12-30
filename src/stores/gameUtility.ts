@@ -74,6 +74,12 @@ export const useGameUtility = defineStore("gameutility", () => {
         resetGame()
         router.push('/')
     }
+    // this function generates a random room id
+    const generateRoomId = () => {
+        const timestamp = Date.now().toString(36)
+        const randomStr = Math.random().toString(36).substring(2, 7)
+        return `room-id-${timestamp}-${randomStr}`
+    }
 
     return {
         quitGame,
@@ -82,7 +88,8 @@ export const useGameUtility = defineStore("gameutility", () => {
         checkWinner,
         checkDraw: computed(() => board.value.every(cell => cell !== '')),
         winnerMessage,
-        findWinningPosition
+        findWinningPosition,
+        generateRoomId
     }
 })
 
