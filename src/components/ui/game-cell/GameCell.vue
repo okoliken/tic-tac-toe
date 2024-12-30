@@ -1,17 +1,27 @@
 <script setup lang="ts">
 import { css } from '../../../../styled-system/css'
 import { Icon } from '@iconify/vue'
-import { computed } from 'vue'
+import { computed, ref, markRaw } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { storeToRefs } from 'pinia'
 import { PlayerType } from '../../../types'
+import { useElementHover } from '@vueuse/core'
+import { useGameState } from '@/stores/gameState'
+import CircleOutlined from '@/components/icons/CircleOutlined.vue'
+import CloseOutlined from '@/components/icons/CloseOutlined.vue'
 
 const { findWinningPosition, winner } = storeToRefs(useGameStore())
+const { playerOneMark } = storeToRefs(useGameState())
 
 const props = defineProps<{
   value: string
   index: number
 }>()
+
+const hoverableCellElement = ref()
+const isHovered = useElementHover(hoverableCellElement, {
+  delayEnter: 600,
+})
 
 const icon = computed(() => {
   if (props.value === PlayerType.X) return 'fa:close'
@@ -46,11 +56,18 @@ const winningPositionClass = computed(() => {
     shadowColor: '0px -8px 0px 0px #10212A inset',
   }
 })
+
+const hoverOutlinedIcon = computed(() => {
+  return playerOneMark.value === PlayerType.X 
+    ? markRaw(CloseOutlined) 
+    : markRaw(CircleOutlined)
+})
 </script>
 
 <template>
   <div
     role="button"
+    ref="hoverableCellElement"
     :class="
       css({
         w: '100%',
@@ -72,7 +89,7 @@ const winningPositionClass = computed(() => {
       })
     "
   >
-    <Transition name="slide-up">
+    <Transition mode="out-in" name="slide-up">
       <div v-if="value">
         <Icon
           :class="
@@ -86,6 +103,29 @@ const winningPositionClass = computed(() => {
             })
           "
           :icon="icon"
+        />
+      </div>
+      <div v-else-if="!value && isHovered">
+        <!-- <Icon
+          :class="
+            css({
+              w: { base: '2.5rem', sm: '4rem' },
+              h: { base: '2.5rem', sm: '4rem' },
+              aspectRatio: '1',
+              color: playerOneMark === PlayerType.X ? 'primary.200' : 'secondary.200',
+            })
+          "
+          :icon="hoverIcon"
+        /> -->
+        <component
+          :is="hoverOutlinedIcon"
+          :class="
+            css({
+              w: { base: '2.5rem', sm: '4rem' },
+              h: { base: '2.5rem', sm: '4rem' },
+              aspectRatio: '1'
+            })
+          "
         />
       </div>
     </Transition>

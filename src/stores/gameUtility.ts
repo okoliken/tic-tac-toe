@@ -45,6 +45,7 @@ export const useGameUtility = defineStore("gameutility", () => {
             })
         })
     })
+    
 
     // utility function to display game status message
     const winnerMessage = computed(() => {
