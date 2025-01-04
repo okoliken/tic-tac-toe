@@ -106,17 +106,6 @@ const hoverOutlinedIcon = computed(() => {
         />
       </div>
       <div v-else-if="!value && isHovered">
-        <!-- <Icon
-          :class="
-            css({
-              w: { base: '2.5rem', sm: '4rem' },
-              h: { base: '2.5rem', sm: '4rem' },
-              aspectRatio: '1',
-              color: playerOneMark === PlayerType.X ? 'primary.200' : 'secondary.200',
-            })
-          "
-          :icon="hoverIcon"
-        /> -->
         <component
           :is="hoverOutlinedIcon"
           :class="

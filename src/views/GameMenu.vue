@@ -7,13 +7,13 @@ import { Icon } from '@iconify/vue'
 import Button from '../components/ui/button/Button.vue'
 import GameLogo from '../components/GameLogo.vue'
 import { useGameStore } from '@/stores/gameStore'
-
-const activeButton = ref('X')
+import { PlayerType } from '../types'
+const activeButton = ref(PlayerType.X)
 const router = useRouter()
 const gameStore = useGameStore()
 
 const handleNavigation = (mode: 'cpu' | 'player') => {
-  gameStore.initGame(mode, activeButton.value as 'X' | 'O')
+  gameStore.initGame(mode, activeButton.value as PlayerType)
   router.push('/game')
 }
 </script>
@@ -85,14 +85,14 @@ const handleNavigation = (mode: 'cpu' | 'player') => {
             "
           >
             <button
-              @click="activeButton = 'X'"
+              @click="activeButton = PlayerType.X"
               :class="
                 css({
                   flex: '1',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  bg: activeButton === 'X' ? 'sliver.200' : 'transparent',
+                  bg: activeButton === PlayerType.X ? 'sliver.200' : 'transparent',
                   h: '3.375rem',
                   borderRadius: '0.625rem',
                   transition: 'all 0.2s ease-in-out',
@@ -106,21 +106,21 @@ const handleNavigation = (mode: 'cpu' | 'player') => {
                   css({
                     w: '2rem',
                     h: '2rem',
-                    color: activeButton === 'X' ? 'darkNavy.100' : 'sliver.200',
+                    color: activeButton === PlayerType.X ? 'darkNavy.100' : 'sliver.200',
                     transition: 'all 0.2s ease-in-out',
                   })
                 "
               />
             </button>
             <button
-              @click="activeButton = 'O'"
+              @click="activeButton = PlayerType.O"
               :class="
                 css({
                   flex: '1',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  bg: activeButton === 'O' ? 'sliver.200' : 'transparent',
+                  bg: activeButton === PlayerType.O ? 'sliver.200' : 'transparent',
                   h: '3.375rem',
                   borderRadius: '0.625rem',
                   transition: 'all 0.2s ease-in-out',
@@ -134,7 +134,7 @@ const handleNavigation = (mode: 'cpu' | 'player') => {
                   css({
                     w: '2rem',
                     h: '2rem',
-                    color: activeButton === 'O' ? 'darkNavy.100' : 'sliver.200',
+                    color: activeButton === PlayerType.O ? 'darkNavy.100' : 'sliver.200',
                     transition: 'all 0.2s ease-in-out',
                   })
                 "
