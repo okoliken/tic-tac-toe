@@ -8,11 +8,9 @@ import Button from '../components/ui/button/Button.vue'
 import { useRouter } from 'vue-router'
 import { useClipboard } from '@vueuse/core'
 import { useGameUtility } from '@/stores/gameUtility'
-import { ref, computed } from 'vue'
-import type { MultiplerGameMode } from '@/types'
+import { computed } from 'vue'
 import {
   databases,
-  realtime,
   GAMES_COLLECTION,
   DATABASE_ID,
 } from '@/services/appwrite'
@@ -38,17 +36,7 @@ const createGame = async () => {
       currentBoard: Array(9).fill(null),
       currentPlayer: 'X',
     })
-    toast.success(ToastMessage.GAME_CREATED, {
-      style: {
-        background: '#65E9E4',
-        border: 'none',
-        color: '#DBE8ED',
-        fontFamily: 'Outfit, sans-serif',
-        fontSize: '1rem',
-        fontWeight: '500',
-        boxShadow: '0px -8px 0px 0px #31C3BD inset',
-      },
-    })
+    toast.success(ToastMessage.GAME_CREATED)
     router.push('/waiting-room/' + roomId.value)
   } catch (error) {
     toast.error(ToastMessage.GAME_CREATE_ERROR)

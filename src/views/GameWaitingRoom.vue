@@ -8,7 +8,11 @@ import { databases, realtime, GAMES_COLLECTION, DATABASE_ID } from '@/services/a
 import { Query } from 'appwrite'
 import { computed } from 'vue'
 import { toast } from 'vue-sonner'
+import { useGameStore } from '@/stores/gameStore'
 
+
+
+const gameStore = useGameStore()
 const route = useRoute()
 const router = useRouter()
 const roomId = route.params.roomId as string
@@ -52,7 +56,9 @@ onMounted(async () => {
             status: 'ready'
           }
         )
+        gameStore.initGame('player', 'X')
         toast.success('Successfully joined the game!')
+        router.push('/game')
       } catch (error) {
         toast.error('Failed to join the game')
         router.push('/')
@@ -70,6 +76,7 @@ onMounted(async () => {
         }
       }
     })
+    
   } catch (error) {
     console.error('Error in waiting room:', error)
     router.push('/')
