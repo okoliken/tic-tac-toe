@@ -23,6 +23,10 @@ const router = createRouter({
           component: () => import('../views/GameWaitingRoom.vue')
         },
         {
+          path: 'join-game/:roomId',
+          component: () => import('../views/GameWaitingRoom.vue')
+        },
+        {
           path:'share-room-link',
           component: () => import('../views/ShareRoomLink.vue')
         }

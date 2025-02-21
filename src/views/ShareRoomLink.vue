@@ -9,12 +9,51 @@ import { useRouter } from 'vue-router'
 import { useClipboard } from '@vueuse/core'
 import { useGameUtility } from '@/stores/gameUtility'
 import { ref, computed } from 'vue'
+import type { MultiplerGameMode } from '@/types'
+import {
+  databases,
+  realtime,
+  GAMES_COLLECTION,
+  DATABASE_ID,
+} from '@/services/appwrite'
+import { ID } from 'appwrite'
+import { toast } from 'vue-sonner'
+import { ToastMessage } from '@/constants/toast'
 
 const router = useRouter()
-const source = ref('Hello')
-const { text, copy, copied, isSupported } = useClipboard({ source })
+const { text, copy, copied, isSupported } = useClipboard()
 
 const roomId = computed(() => useGameUtility().generateRoomId())
+
+const getJoinGameUrl = computed(() => 
+  `${window.location.origin}/join-game/${roomId.value}`
+)
+
+const createGame = async () => {
+  try {
+    await databases.createDocument(DATABASE_ID, GAMES_COLLECTION, ID.unique(), {
+      roomId: roomId.value,
+      status: 'waiting',
+      players: ['P1'],
+      currentBoard: Array(9).fill(null),
+      currentPlayer: 'X',
+    })
+    toast.success(ToastMessage.GAME_CREATED, {
+      style: {
+        background: '#65E9E4',
+        border: 'none',
+        color: '#DBE8ED',
+        fontFamily: 'Outfit, sans-serif',
+        fontSize: '1rem',
+        fontWeight: '500',
+        boxShadow: '0px -8px 0px 0px #31C3BD inset',
+      },
+    })
+    router.push('/waiting-room/' + roomId.value)
+  } catch (error) {
+    toast.error(ToastMessage.GAME_CREATE_ERROR)
+  }
+}
 </script>
 
 <template>
@@ -112,7 +151,7 @@ const roomId = computed(() => useGameUtility().generateRoomId())
                 "
                 type="button"
                 v-if="!copied"
-                @click="() => (isSupported ? copy(roomId) : null)"
+                @click="() => (isSupported ? copy(getJoinGameUrl) : null)"
               >
                 <Copy />
               </button>
@@ -142,7 +181,7 @@ const roomId = computed(() => useGameUtility().generateRoomId())
       "
     >
       <Button
-        @click="() => router.push('/waiting-room/' + roomId)"
+        @click="createGame"
         visual="secondary"
         size="lg"
         :disabled="!text && !copied"

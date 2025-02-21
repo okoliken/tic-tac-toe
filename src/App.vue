@@ -1,4 +1,9 @@
+<script setup lang="ts">
+import { Toaster } from 'vue-sonner'
+</script>
+
 <template>
+  <Toaster position="top-center" />
   <router-view v-slot="{ Component, route }">
     <transition name="slide" mode="out-in">
       <component :is="Component" :key="route.path" />
