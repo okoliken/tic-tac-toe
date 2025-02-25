@@ -58,7 +58,7 @@ onMounted(async () => {
         )
         gameStore.initGame('player', 'X')
         toast.success('Successfully joined the game!')
-        router.push('/game')
+        // router.push('/game')
       } catch (error) {
         toast.error('Failed to join the game')
         router.push('/')
@@ -66,28 +66,31 @@ onMounted(async () => {
     }
 
     // Both players subscribe to game updates
-    unsubscribe = realtime.subscribe([
-      `databases.${DATABASE_ID}.collections.${GAMES_COLLECTION}.documents`,
-    ], (response) => {
-      if (response.events.includes('databases.*.collections.*.documents.*.update')) {
-        const payload = response.payload as { roomId: string; status: string }
-        if (payload.roomId === roomId && payload.status === 'ready') {
-          router.push('/game')
-        }
-      }
-    })
-    
   } catch (error) {
     console.error('Error in waiting room:', error)
     router.push('/')
   }
 })
 
-onUnmounted(() => {
-  if (unsubscribe) {
-    unsubscribe()
-  }
+onMounted(() => {
+  unsubscribe = realtime.subscribe([
+      `databases.${DATABASE_ID}.collections.${GAMES_COLLECTION}.documents`,
+    ], (response) => {
+      if (response.events.includes('databases.*.collections.*.documents.*.update')) {
+        console.log(response)
+        const payload = response.payload as { roomId: string; status: string }
+        if (payload.roomId === roomId && payload.status === 'ready') {
+          router.push('/game')
+        }
+      }
+    })
 })
+
+// onUnmounted(() => {
+//   if (unsubscribe) {
+//     unsubscribe()
+//   }
+// })
 </script>
 
 <template>

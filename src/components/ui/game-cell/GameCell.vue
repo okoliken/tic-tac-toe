@@ -18,7 +18,7 @@ const props = defineProps<{
   index: number
 }>()
 
-const hoverableCellElement = ref()
+const hoverableCellElement = ref<HTMLElement | null>(null)
 const isHovered = useElementHover(hoverableCellElement, {
   delayEnter: 600,
 })

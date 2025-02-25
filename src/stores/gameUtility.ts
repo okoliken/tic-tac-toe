@@ -4,7 +4,6 @@ import { useModalStore } from './modalStore'
 import { useGameState } from './gameState'
 import { storeToRefs } from 'pinia'
 import { computed } from "vue";
-import { PlayerType } from "@/types";
 
 export const useGameUtility = defineStore("gameutility", () => {
     const router = useRouter()

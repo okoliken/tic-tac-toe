@@ -8,7 +8,7 @@ import Button from '../components/ui/button/Button.vue'
 import { useRouter } from 'vue-router'
 import { useClipboard } from '@vueuse/core'
 import { useGameUtility } from '@/stores/gameUtility'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import {
   databases,
   GAMES_COLLECTION,
@@ -23,11 +23,13 @@ const { text, copy, copied, isSupported } = useClipboard()
 
 const roomId = computed(() => useGameUtility().generateRoomId())
 
+
 const getJoinGameUrl = computed(() => 
   `${window.location.origin}/join-game/${roomId.value}`
 )
 
 const createGame = async () => {
+  localStorage.setItem('roomId', roomId.value)
   try {
     await databases.createDocument(DATABASE_ID, GAMES_COLLECTION, ID.unique(), {
       roomId: roomId.value,
